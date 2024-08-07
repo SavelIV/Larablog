@@ -38,7 +38,7 @@ class PostController extends BaseController
             }
         });
 
-        $data['posts'] = $query->paginate(5)->withQueryString();
+        $data['posts'] = $query->paginate(10)->withQueryString();
 
         return view('admin.posts.index', $data);
     }

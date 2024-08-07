@@ -2,10 +2,10 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-            <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+            <img src="{{ url('/storage/' . Auth::user()->image) }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-            <a href="#" class="d-block">{{ Auth::user()->getRoleName(Auth::user()->role) . ': ' .  Auth::user()->name }}</a>
+            <a href="{{ route('cabinet.index') }}" class="d-block">{{ Auth::user()->getRoleName(Auth::user()->role) . ': ' .  Auth::user()->name }}</a>
         </div>
     </div>
     <a class="btn btn-block btn-outline-danger" href="{{ route('logout') }}"
@@ -45,11 +45,21 @@
                     <span class="badge badge-info right">{{ $tagsCount }}</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="border-bottom: 1px solid #4f5962;">
                 <a href="{{ route('posts.index') }}" class="nav-link">
                     <i class="nav-icon fa fa-pen"></i>
                     <p>Posts</p>
                     <span class="badge badge-info right">{{ $postsCount }}</span>
+                </a>
+            </li>
+            <li class="nav-item d-flex" style="border-bottom: 1px solid #4f5962;">
+                <a href="{{ route('cabinet.index') }}" class="nav-link">
+                    <p>CABINET</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('/') }}" class="nav-link">
+                    <p>TO THE SITE</p>
                 </a>
             </li>
         </ul>

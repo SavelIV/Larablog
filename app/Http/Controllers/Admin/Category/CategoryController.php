@@ -102,7 +102,7 @@ class CategoryController extends Controller
     {
         if (!$category->canDelete()) {
             return redirect()->route('categories.index')
-                ->with('error', 'Unable to delete used Category!');
+                ->with('error', 'Unable to delete category in use!');
         }
 
         $category->delete();

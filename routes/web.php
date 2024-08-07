@@ -5,7 +5,6 @@ use App\Http\Controllers\Admin\Post\PostController;
 use App\Http\Controllers\Admin\Tag\TagController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Cabinet\Comments\CommentController;
-use App\Http\Controllers\Cabinet\Likes\LikeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -28,8 +27,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Main'], function () {
 });
 
 Route::group(['namespace' => 'App\Http\Controllers\Blog', 'prefix' => 'blog'], function () {
-    Route::get('/category/{categoryId?}', 'IndexController@index')->name('blog.index');
+    Route::get('/categories/{categoryId?}', 'IndexController@index')->name('blog.index');
     Route::get('/show/{post}', 'IndexController@show')->name('blog.show');
+    Route::post('/post/{post}/comments', 'IndexController@comments')->name('blog.post.comments');
+    Route::post('/post/{post}/likes', 'IndexController@likes')->name('blog.post.likes');
 });
 
 Route::group(['namespace' => 'App\Http\Controllers\Cabinet', 'prefix' => 'cabinet', 'middleware' => ['auth', 'verified']], function () {
@@ -37,7 +38,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Cabinet', 'prefix' => 'cabine
         Route::get('/', 'IndexController')->name('cabinet.index');
     });
     Route::resource('comments', CommentController::class);
-    Route::resource('likes', LikeController::class);
+    Route::group(['namespace' => 'Likes'], function () {
+        Route::get('likes', 'LikeController@index')->name('likes.index');
+        Route::get('likes/unlike/{post}', 'LikeController@unlike')->name('likes.unlike');
+    });
+    Route::group(['namespace' => 'Settings'], function () {
+        Route::get('settings', 'SettingController@edit')->name('cabinet.settings');
+        Route::put('settings', 'SettingController@update')->name('cabinet.settings.update');
+        Route::delete('settings', 'SettingController@deleteImage')->name('cabinet.settings.deleteImage');
+    });
 });
 
 Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'verified', 'moderator']], function () {
@@ -46,7 +55,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 
     });
     Route::resource('categories', CategoryController::class);
     Route::resource('tags', TagController::class);
-    Route::resource('posts', PostController::class);
+    Route::group(['namespace' => 'Post'], function () {
+        Route::get('/trash-posts/{post}/restore', 'TrashPostController@restore')->name('post.restore');
+        Route::delete('/trash-posts/{post}/forceDelete', 'TrashPostController@forceDelete')->name('post.forceDelete');
+    });
+    Route::resource('posts', PostController::class)->withTrashed(['show']);
     Route::resource('users', UserController::class)->middleware(['admin']);
 });
 

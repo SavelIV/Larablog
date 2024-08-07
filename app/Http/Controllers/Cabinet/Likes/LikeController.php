@@ -28,7 +28,7 @@ class LikeController extends Controller
      * @param Post $post
      * @return RedirectResponse
      */
-    public function destroy(Post $post): RedirectResponse
+    public function unlike(Post $post): RedirectResponse
     {
         auth()->user()->likedPosts()->detach($post->id);
 

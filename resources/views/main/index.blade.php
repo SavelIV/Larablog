@@ -12,7 +12,7 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <h6 class="comimg-soon-subtitle" data-aos="fade-up">
-                                    This is my first time working with Laravel, and I'm always doing something
+                                    This is my first time working with Laravel and I always do something
                                     <a href="https://saviv.site" target="_blank">new</a>
                                 </h6>
                                 <h6 class="comimg-soon-subtitle" data-aos="fade-up">

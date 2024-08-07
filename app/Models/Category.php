@@ -15,6 +15,8 @@ class Category extends Model
         'title'
     ];
 
+    protected $withCount = ['posts'];
+
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class, 'category_id', 'id');

@@ -74,9 +74,9 @@ class PostService
     /**
      * @param string $picture
      * @param string $pictureType
-     * @return mixed
+     * @return string|bool
      */
-    public function resizeImage(string $picture, string $pictureType): mixed
+    public function resizeImage(string $picture, string $pictureType): string|bool
     {
         if (!$picture || !$pictureType) {
             return false;

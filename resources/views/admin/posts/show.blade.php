@@ -6,20 +6,17 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Post: {{$post->title}}</h1>
+                        <h1 class="m-0">Post: {{$post->shortTitle}}</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Post: {{$post->title}}</li>
+                            <li class="breadcrumb-item active">Post ID: {{$post->id}}</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
-        <!-- /.content-header -->
-
-        <!-- Main content -->
         <div class="container">
             <div class="card">
                 <div class="card-header">
@@ -47,8 +44,17 @@
                             <p><img src="{{ url('/storage/' . $post->preview_image) }}" alt="preview_image" width="200"
                                     height="200" class="img img-responsive"></p>
                         </div>
-
                     </div>
+                    @if(isset($post->deleted_at))
+                        <form action="{{ route('post.forceDelete', $post->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-outline-danger mt-3"
+                                    onclick="return confirm('Are you sure?')">
+                                Force Delete Post
+                            </button>
+                        </form>
+                    @endif
                 </div>
             </div>
         </div>

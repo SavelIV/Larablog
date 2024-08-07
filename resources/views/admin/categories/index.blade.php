@@ -45,14 +45,14 @@
                         <tr>
                             <th>ID</th>
                             <th>Title</th>
-                            <th>Created At</th>
+                            <th>Posts in Category</th>
                             <th width="240px">Action</th>
                         </tr>
                         @foreach ($categories as $category)
                             <tr>
                                 <td>{{ $category->id }}</td>
                                 <td>{{ $category->title }}</td>
-                                <td>{{ $category->created_at }}</td>
+                                <td>{{ $category->posts_count }}</td>
                                 <td>
                                     <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
                                         <a

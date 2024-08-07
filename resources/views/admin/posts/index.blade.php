@@ -81,7 +81,7 @@
                         @foreach ($posts as $post)
                             <tr>
                                 <td>{{ $post->id }}</td>
-                                <td class={{ isset($post->deleted_at) ? 'text-danger' : ''}} >{{ $post->title }}</td>
+                                <td class={{ isset($post->deleted_at) ? 'text-danger' : ''}} >{{ $post->shortTitle }}</td>
                                 <td>{{ $post->created_at }}</td>
                                 <td>{{ $post->category->title }}</td>
                                 <td>{{ $post->tags->implode('title', ', ') }}</td>
@@ -112,8 +112,13 @@
                                     @else
                                         <a
                                             class="btn btn-outline-danger"
-                                            href="{{ route('posts.index', $post->id) }}">
+                                            href="{{ route('posts.show', $post->id) }}">
                                             Trashed
+                                        </a>
+                                        <a
+                                            class="btn btn-outline-success"
+                                            href="{{ route('post.restore', $post->id) }}">
+                                            Restore
                                         </a>
                                     @endif
                                 </td>

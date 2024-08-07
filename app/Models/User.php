@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Stringable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -30,6 +31,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'role',
+        'image'
     ];
 
     /**
@@ -70,6 +72,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getRoleName(int|null $role): string
     {
         return self::getRoles()[$role] ?? 'User';
+    }
+
+    /**
+     * @return Stringable|mixed
+     */
+    public function getShortNameAttribute(): mixed
+    {
+        return str($this->name)->limit(9);
     }
 
     public function sendEmailVerificationNotification(): void

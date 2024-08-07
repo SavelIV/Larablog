@@ -31,12 +31,14 @@
                         <tr>
                             <th>ID</th>
                             <th>Message...</th>
+                            <th>Post title</th>
                             <th width="240px">Action</th>
                         </tr>
                         @foreach ($comments as $comment)
                             <tr>
                                 <td>{{ $comment->id }}</td>
                                 <td>{{ str($comment->message)->limit(20)}}</td>
+                                <td>{{ str($comment->post->title)->limit(20)}}</td>
                                 <td>
                                     <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
                                         <a
