@@ -1,6 +1,6 @@
 **A pet project.**
 
-Working project [here](https://larablog.saviv.site).
+Working project is [here](https://larablog.saviv.site).
 
 This is a small blog for sharing various information, built on Laravel framework.
 The goal is to keep photo diaries online, the ability to make friends and make acquaintances, share photos and impressions.
